@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Advocate Document Hub</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg: #f4f6fa;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #687386;
+    --border: #e1e5ec;
+    --primary: #173b72;
+    --primary2: #285797;
+    --shadow: 0 8px 25px rgba(20,35,60,.08);
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* HEADER */
+
+header {
+    background: linear-gradient(135deg, #102d58, #24518e);
+    color: white;
+    padding: 16px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+}
+
+.navbar {
+    max-width: 1400px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 46px;
+    height: 46px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.brand h1 {
+    font-size: 20px;
+}
+
+.brand p {
+    font-size: 12px;
+    opacity: .75;
+    margin-top: 3px;
+}
+
+/* HERO */
+
+.hero {
+    max-width: 1400px;
+    margin: 30px auto 20px;
+    padding: 0 5%;
+}
+
+.hero-box {
+    background: linear-gradient(135deg,#16376a,#2b5a99);
+    color: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: var(--shadow);
+}
+
+.hero-box h2 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.hero-box p {
+    max-width: 720px;
+    line-height: 1.6;
+    opacity: .85;
+}
+
+/* SEARCH */
+
+.search-area {
+    max-width: 1400px;
+    margin: 25px auto;
+    padding: 0 5%;
+}
+
+.search-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 17px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow);
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--text);
+    font-size: 16px;
+}
+
+/* CONTROLS */
+
+.controls {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.categories {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.category-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.category-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.sort-box select {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 8px;
+}
+
+/* STATS */
+
+.stats {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+}
+
+.stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 17px 20px;
+    box-shadow: var(--shadow);
+}
+
+.stat-number {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+/* DOCUMENTS */
+
+.documents-section {
+    max-width: 1400px;
+    margin: 30px auto 60px;
+    padding: 0 5%;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.result-count {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.document-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+    gap: 17px;
+}
+
+/* CARD */
+
+.document-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 20px;
+    min-height: 215px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: .2s;
+    box-shadow: 0 3px 12px rgba(20,35,60,.04);
+}
+
+.document-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.doc-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 11px;
+    background: rgba(23,59,114,.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+}
+
+.document-card h4 {
+    margin-top: 15px;
+    font-size: 17px;
+    line-height: 1.35;
+}
+
+.document-card p {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.tag {
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: rgba(23,59,114,.1);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.open-text {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* EMPTY */
+
+.empty {
+    display: none;
+    text-align: center;
+    padding: 50px;
+    background: var(--card);
+    border: 1px dashed var(--border);
+    border-radius: 15px;
+    color: var(--muted);
+}
+
+/* FOOTER */
+
+footer {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 25px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    .navbar {
+        align-items: flex-start;
+    }
+
+    .brand h1 {
+        font-size: 17px;
+    }
+
+    .brand p {
+        display: none;
+    }
+
+    .hero-box {
+        padding: 25px;
+    }
+
+    .hero-box h2 {
+        font-size: 27px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .document-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .sort-box select {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+
+<div class="navbar">
+
+    <div class="logo-area">
+
+        <div class="logo">⚖</div>
+
+        <div class="brand">
+            <h1>Advocate Document Hub</h1>
+            <p>Legal Document Generation System</p>
+        </div>
+
+    </div>
+
+</div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-box">
+
+    <h2>Your Legal Document Workspace</h2>
+
+    <p>
+        Search and quickly access all your legal document generators
+        from one place. Select the document you need and open the
+        document generation system.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section class="search-area">
+
+<div class="search-box">
+
+    <span>🔎</span>
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search document, category or description..."
+        oninput="renderDocuments()"
+    >
+
+</div>
+
+</section>
+
+
+<!-- CONTROLS -->
+
+<div class="controls">
+
+    <div class="categories" id="categories"></div>
+
+    <div class="sort-box">
+
+        <select id="sortSelect" onchange="renderDocuments()">
+
+            <option value="name">
+                Sort by Name
+            </option>
+
+            <option value="category">
+                Sort by Category
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<!-- STATS -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <div class="stat-number" id="totalCount">
+            0
+        </div>
+
+        <div class="stat-label">
+            Total Documents
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-number" id="categoryCount">
+            0
+        </div>
+
+        <div class="stat-label">
+            Categories
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-number" id="resultStat">
+            0
+        </div>
+
+        <div class="stat-label">
+            Showing Documents
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DOCUMENTS -->
+
+<section class="documents-section">
+
+    <div class="section-heading">
+
+        <h3>
+            Document Generators
+        </h3>
+
+        <span
+            class="result-count"
+            id="resultCount">
+            0 documents
+        </span>
+
+    </div>
+
+
+    <div
+        class="document-grid"
+        id="documentGrid">
+    </div>
+
+
+    <div
+        class="empty"
+        id="emptyState">
+
+        <div style="font-size:40px;">
+            🔍
+        </div>
+
+        <h3 style="margin:10px 0;">
+            No documents found
+        </h3>
+
+        <p>
+            Try another search.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <strong>Advocate Document Hub</strong>
+    <br>
+    Your personal legal document workspace
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   DEFAULT DOCUMENTS
+
+   IMPORTANT:
+   No LocalStorage
+   No SessionStorage
+   No Cookies
+   No Cache-based data
+   ========================================================= */
+
+const DEFAULT_DOCUMENTS = [
+
+    {
+        id: "1",
+        title: "Search Report",
+        description: "SBI searching report",
+        category: "Bank",
+        icon: "📜",
+        url: "https://jnveer.github.io/SearchReport/"
+    },
+
+    {
+        id: "2",
+        title: "Annexure B",
+        description: "SBI searching report",
+        category: "Bank",
+        icon: "📜",
+        url: "https://jnveer.github.io/annxureb/"
+    }
+
+];
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let selectedCategory = "All";
+
+
+/* =========================================================
+   CATEGORY LIST
+   ========================================================= */
+
+function getCategories() {
+
+    return [
+        "All",
+        ...new Set(
+            DEFAULT_DOCUMENTS.map(
+                item => item.category
+            )
+        )
+    ];
+
+}
+
+
+/* =========================================================
+   RENDER CATEGORY BUTTONS
+   ========================================================= */
+
+function renderCategories() {
+
+    const container =
+        document.getElementById("categories");
+
+    container.innerHTML = "";
+
+    getCategories().forEach(category => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "category-btn";
+
+        if (category === selectedCategory) {
+
+            button.classList.add("active");
+
+        }
+
+        button.textContent = category;
+
+        button.onclick = function() {
+
+            selectedCategory = category;
+
+            renderCategories();
+
+            renderDocuments();
+
+        };
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+/* =========================================================
+   RENDER DOCUMENTS
+   ========================================================= */
+
+function renderDocuments() {
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    let results =
+        DEFAULT_DOCUMENTS.filter(item => {
+
+            const matchesSearch =
+
+                item.title
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                (item.description || "")
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                item.category
+                    .toLowerCase()
+                    .includes(search);
+
+
+            const matchesCategory =
+
+                selectedCategory === "All"
+
+                ||
+
+                item.category === selectedCategory;
+
+
+            return (
+                matchesSearch &&
+                matchesCategory
+            );
+
+        });
+
+
+    /* SORT */
+
+    const sort =
+        document
+        .getElementById("sortSelect")
+        .value;
+
+
+    if (sort === "name") {
+
+        results.sort(
+            (a,b) =>
+                a.title.localeCompare(b.title)
+        );
+
+    }
+
+
+    if (sort === "category") {
+
+        results.sort(
+            (a,b) =>
+                a.category.localeCompare(
+                    b.category
+                )
+        );
+
+    }
+
+
+    /* DISPLAY */
+
+    const grid =
+        document.getElementById("documentGrid");
+
+    const empty =
+        document.getElementById("emptyState");
+
+
+    grid.innerHTML = "";
+
+
+    if (results.length === 0) {
+
+        empty.style.display = "block";
+
+    } else {
+
+        empty.style.display = "none";
+
+    }
+
+
+    results.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "document-card";
+
+
+        card.onclick = function() {
+
+            window.open(
+                item.url,
+                "_blank",
+                "noopener,noreferrer"
+            );
+
+        };
+
+
+        card.innerHTML = `
+
+            <div class="card-top">
+
+                <div class="doc-icon">
+                    ${escapeHTML(item.icon || "📄")}
+                </div>
+
+            </div>
+
+
+            <h4>
+                ${escapeHTML(item.title)}
+            </h4>
+
+
+            <p>
+                ${escapeHTML(item.description || "")}
+            </p>
+
+
+            <div class="card-bottom">
+
+                <span class="tag">
+                    ${escapeHTML(item.category)}
+                </span>
+
+                <span class="open-text">
+                    Open ↗
+                </span>
+
+            </div>
+
+        `;
+
+
+        grid.appendChild(card);
+
+    });
+
+
+    document
+        .getElementById("resultCount")
+        .textContent =
+        results.length +
+        (
+            results.length === 1
+            ? " document"
+            : " documents"
+        );
+
+
+    document
+        .getElementById("resultStat")
+        .textContent =
+        results.length;
+
+
+    updateStats();
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================================
+   STATISTICS
+   ========================================================= */
+
+function updateStats() {
+
+    const categories =
+        new Set(
+            DEFAULT_DOCUMENTS.map(
+                item => item.category
+            )
+        );
+
+
+    document
+        .getElementById("totalCount")
+        .textContent =
+        DEFAULT_DOCUMENTS.length;
+
+
+    document
+        .getElementById("categoryCount")
+        .textContent =
+        categories.size;
+
+}
+
+
+/* =========================================================
+   INITIAL LOAD
+   ========================================================= */
+
+renderCategories();
+
+renderDocuments();
+
+</script>
+
+</body>
+</html>
